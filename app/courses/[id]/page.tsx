@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { CourseMap } from "./CourseMap";
 import { SpeakButton } from "../../SpeakButton";
 import { courses, getCoursePlaces } from "@/lib/demo-data";
+import { formatDuration } from "@/lib/format";
 import { buildItinerary, formatTime, parseTime } from "@/lib/recommend";
 import { itinerarySpeech } from "@/lib/speech-text";
 import type { ItineraryStep } from "@/lib/recommend";
@@ -96,8 +97,11 @@ export default async function CourseDetailPage({
       <dl className="mt-8 divide-y divide-line border-y border-line">
         <Row label="총 걸리는 시간">
           <span className="tnum">
-            이동 {course.travelMinutes}분 + 머무는 {course.stayMinutes}분 ={" "}
-            <strong className="font-medium">{course.totalMinutes}분</strong>
+            이동 {formatDuration(course.travelMinutes)} + 머무는{" "}
+            {formatDuration(course.stayMinutes)} ={" "}
+            <strong className="font-medium">
+              {formatDuration(course.totalMinutes)}
+            </strong>
           </span>
         </Row>
         <Row label="예상 지출">
@@ -144,7 +148,7 @@ function ReturnBadge({
           <>
             <span className="tnum">{eventAt}</span> {eventName} 시작{" "}
             <strong className="tnum font-medium text-foreground">
-              {gapMinutes}분 전
+              {formatDuration(gapMinutes)} 전
             </strong>
             에 돌아옵니다. 안전여유 {SAFETY_MARGIN_MINUTES}분{" "}
             {safe ? "이상을 남겼습니다." : "에 못 미칩니다."}
@@ -160,7 +164,7 @@ function Step({ step }: { step: ItineraryStep }) {
     return (
       <div className="flex items-center gap-4 py-2 pl-[4.5rem] text-[0.75rem] text-muted">
         <span className="h-4 w-px bg-line" />
-        <span className="tnum">걸어서 {step.minutes}분</span>
+        <span className="tnum">걸어서 {formatDuration(step.minutes)}</span>
       </div>
     );
   }
@@ -179,8 +183,8 @@ function Step({ step }: { step: ItineraryStep }) {
             {step.place.area} · {step.place.note}
           </span>
           <span className="tnum mt-1.5 block text-[0.75rem] text-accent">
-            {step.at}–{step.until} · {step.place.stayMinutes}분 머무름 ·{" "}
-            {step.place.benefit}
+            {step.at}–{step.until} · {formatDuration(step.place.stayMinutes)}{" "}
+            머무름 · {step.place.benefit}
           </span>
         </span>
       </div>

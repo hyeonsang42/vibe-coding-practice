@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 
 import { VoiceInput } from "./VoiceInput";
+import { formatDuration, splitDuration } from "@/lib/format";
 import { FESTIVAL_VENUE, SAFETY_MARGIN_MINUTES } from "@/lib/types";
 import type { PlaceCategory } from "@/lib/types";
 import type { ParsedVoice } from "@/lib/voice-parse";
@@ -287,6 +288,36 @@ function Row({
   );
 }
 
+/** 큰 숫자는 크게, 단위는 작게 — 60분이 넘으면 "1시간 20분"으로 적는다 */
+function Duration({
+  value,
+  unitClassName,
+}: {
+  value: number;
+  unitClassName: string;
+}) {
+  const { hours, minutes } = splitDuration(value);
+  const unit = `ml-1 font-medium ${unitClassName}`;
+
+  return (
+    <>
+      {hours > 0 ? (
+        <>
+          {hours}
+          <span className={unit}>시간</span>
+        </>
+      ) : null}
+      {minutes > 0 || hours === 0 ? (
+        <>
+          {hours > 0 ? " " : ""}
+          {minutes}
+          <span className={unit}>분</span>
+        </>
+      ) : null}
+    </>
+  );
+}
+
 function RemainBlock({
   remainMinutes,
   usableMinutes,
@@ -308,7 +339,7 @@ function RemainBlock({
       >
         {invalid
           ? "행사 시작시각이 현재 시각보다 빠릅니다. 시간을 다시 확인해주세요."
-          : `남은 시간 ${remainMinutes}분. 안전여유 ${SAFETY_MARGIN_MINUTES}분을 빼면 움직일 시간이 없습니다.`}
+          : `남은 시간 ${formatDuration(remainMinutes)}. 안전여유 ${SAFETY_MARGIN_MINUTES}분을 빼면 움직일 시간이 없습니다.`}
       </p>
     );
   }
@@ -320,23 +351,22 @@ function RemainBlock({
       className="mb-9 rounded-sm border border-line bg-surface px-5 py-5"
     >
       <p className="sr-only">
-        남은 시간 {remainMinutes}분, 안전여유 {SAFETY_MARGIN_MINUTES}분을 빼면
-        움직일 수 있는 시간은 {usableMinutes}분입니다.
+        남은 시간 {formatDuration(remainMinutes)}, 안전여유{" "}
+        {SAFETY_MARGIN_MINUTES}분을 빼면 움직일 수 있는 시간은{" "}
+        {formatDuration(usableMinutes ?? 0)}입니다.
       </p>
 
       <div aria-hidden className="flex items-end justify-between">
         <div>
           <p className="eyebrow text-muted">남은 시간</p>
           <p className="tnum mt-2 font-serif text-[2.75rem] font-semibold leading-none">
-            {remainMinutes}
-            <span className="ml-1 text-lg font-medium text-muted">분</span>
+            <Duration value={remainMinutes} unitClassName="text-lg text-muted" />
           </p>
         </div>
         <div className="text-right">
           <p className="eyebrow text-accent">움직일 수 있는 시간</p>
           <p className="tnum mt-2 font-serif text-2xl font-semibold leading-none text-accent">
-            {usableMinutes}
-            <span className="ml-0.5 text-sm font-medium">분</span>
+            <Duration value={usableMinutes ?? 0} unitClassName="text-sm" />
           </p>
         </div>
       </div>

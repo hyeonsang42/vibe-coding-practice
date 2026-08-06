@@ -6,6 +6,7 @@
  * 들었을 때 자연스러운 문장을 따로 만든다.
  */
 
+import { formatDuration } from "./format";
 import { parseTime } from "./recommend";
 import type { ItineraryStep } from "./recommend";
 import { FESTIVAL_VENUE } from "./types";
@@ -59,8 +60,8 @@ export function courseSpeech({
   return [
     `${course.title}. ${course.slot}분 코스입니다.`,
     `${joinKorean(places.map((place) => place.name))} ${places.length}곳을 들릅니다.`,
-    `걷는 시간 ${course.travelMinutes}분, 머무는 시간 ${course.stayMinutes}분, 모두 ${course.totalMinutes}분 걸립니다.`,
-    `${timeToKorean(returnAt)}에 돌아오고, 행사 시작까지 ${slackMinutes}분 남습니다.`,
+    `걷는 시간 ${formatDuration(course.travelMinutes)}, 머무는 시간 ${formatDuration(course.stayMinutes)}, 모두 ${formatDuration(course.totalMinutes)} 걸립니다.`,
+    `${timeToKorean(returnAt)}에 돌아오고, 행사 시작까지 ${formatDuration(slackMinutes)} 남습니다.`,
     `예상 지출은 ${course.spend}원입니다.`,
     course.reason,
   ].join(" ");
@@ -84,10 +85,10 @@ export function itinerarySpeech({
     if (step.kind === "출발") {
       lines.push(`${timeToKorean(step.at)}, ${FESTIVAL_VENUE}에서 출발합니다.`);
     } else if (step.kind === "이동") {
-      lines.push(`걸어서 ${step.minutes}분.`);
+      lines.push(`걸어서 ${formatDuration(step.minutes)}.`);
     } else if (step.kind === "체류") {
       lines.push(
-        `${timeToKorean(step.at)}, ${step.place.name} 도착. ${step.place.stayMinutes}분 머뭅니다. 혜택은 ${step.place.benefit}입니다.`,
+        `${timeToKorean(step.at)}, ${step.place.name} 도착. ${formatDuration(step.place.stayMinutes)} 머뭅니다. 혜택은 ${step.place.benefit}입니다.`,
       );
     } else {
       lines.push(`${timeToKorean(step.at)}, ${FESTIVAL_VENUE}으로 돌아옵니다.`);
@@ -95,7 +96,7 @@ export function itinerarySpeech({
   }
 
   if (gapMinutes !== null) {
-    lines.push(`${eventName} 시작 ${gapMinutes}분 전입니다.`);
+    lines.push(`${eventName} 시작 ${formatDuration(gapMinutes)} 전입니다.`);
   }
 
   lines.push(course.rainAlternative);

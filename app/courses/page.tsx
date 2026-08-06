@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { SpeakButton } from "../SpeakButton";
+import { formatDuration } from "@/lib/format";
 import { parseTime, recommendCourses } from "@/lib/recommend";
 import { courseSpeech } from "@/lib/speech-text";
 import type { Recommendation, RejectReason } from "@/lib/recommend";
@@ -71,7 +72,7 @@ export default async function CoursesPage({
 
       <header className="mt-7">
         <h1 className="font-serif text-[1.75rem] font-semibold leading-snug tracking-tight">
-          {remainMinutes}분이면
+          {formatDuration(remainMinutes)}이면
           <br />
           다녀올 수 있어요
         </h1>
@@ -164,13 +165,19 @@ function CourseCard({
         </Line>
         <Line label="걸리는 시간">
           <span className="tnum">
-            이동 {course.travelMinutes}분 + 머무는 {course.stayMinutes}분 ={" "}
-            {course.totalMinutes}분
+            이동 {formatDuration(course.travelMinutes)} + 머무는{" "}
+            {formatDuration(course.stayMinutes)} ={" "}
+            <strong className="font-medium">
+              {formatDuration(course.totalMinutes)}
+            </strong>
           </span>
         </Line>
         <Line label="복귀 예정">
           <span className="tnum font-medium text-foreground">{returnAt}</span>
-          <span className="tnum text-muted"> · 여유 {slackMinutes}분</span>
+          <span className="tnum text-muted">
+            {" "}
+            · 여유 {formatDuration(slackMinutes)}
+          </span>
         </Line>
         <Line label="예상 지출">
           <span className="tnum">{course.spend.toLocaleString()}원</span>
@@ -217,9 +224,9 @@ function EmptyState({ remainMinutes }: { remainMinutes: number }) {
         지금 조건으로는 안전한 코스가 없습니다
       </p>
       <p className="mt-2 text-[0.8125rem] leading-relaxed text-muted">
-        남은 {remainMinutes}분 안에 다녀오고 안전여유 {SAFETY_MARGIN_MINUTES}
-        분까지 남기려면 시간이 모자랍니다. 행사에 늦을 수 있는 코스는 보여드리지
-        않습니다.
+        남은 {formatDuration(remainMinutes)} 안에 다녀오고 안전여유{" "}
+        {SAFETY_MARGIN_MINUTES}분까지 남기려면 시간이 모자랍니다. 행사에 늦을 수
+        있는 코스는 보여드리지 않습니다.
       </p>
       <Link
         href="/plan"
