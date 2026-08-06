@@ -139,6 +139,62 @@ function scoreOf(
   return { score: Math.round(score), matchedInterests };
 }
 
+export type ItineraryStep =
+  | { kind: "출발"; at: string }
+  | { kind: "이동"; minutes: number }
+  | { kind: "체류"; place: Place; at: string; until: string }
+  | { kind: "복귀"; at: string };
+
+/**
+ * 코스를 시간 순서대로 펼친다.
+ *
+ * 구간별 이동시간은 따로 저장하지 않고 총 이동시간에서 나눈다.
+ * 첫 구간과 마지막 구간은 각 장소의 축제장 기준 도보 시간을 쓰고,
+ * 남는 시간을 장소 사이 구간에 고르게 나눠준다.
+ */
+export function buildItinerary(
+  course: Course,
+  places: Place[],
+  startMinutes: number,
+): ItineraryStep[] {
+  if (places.length === 0) return [];
+
+  const firstLeg = places[0].walkMinutes;
+  const lastLeg = places[places.length - 1].walkMinutes;
+  const middleCount = places.length - 1;
+  const middleTotal = Math.max(course.travelMinutes - firstLeg - lastLeg, 0);
+
+  const middleLegs: number[] = [];
+  for (let i = 0; i < middleCount; i += 1) {
+    const base = Math.floor(middleTotal / middleCount);
+    const remainder = middleTotal % middleCount;
+    middleLegs.push(base + (i < remainder ? 1 : 0));
+  }
+
+  const steps: ItineraryStep[] = [{ kind: "출발", at: formatTime(startMinutes) }];
+  let cursor = startMinutes;
+
+  places.forEach((place, index) => {
+    const leg = index === 0 ? firstLeg : middleLegs[index - 1];
+    steps.push({ kind: "이동", minutes: leg });
+    cursor += leg;
+
+    steps.push({
+      kind: "체류",
+      place,
+      at: formatTime(cursor),
+      until: formatTime(cursor + place.stayMinutes),
+    });
+    cursor += place.stayMinutes;
+  });
+
+  steps.push({ kind: "이동", minutes: lastLeg });
+  cursor += lastLeg;
+  steps.push({ kind: "복귀", at: formatTime(cursor) });
+
+  return steps;
+}
+
 /** 조건에 맞는 코스만 골라 점수 순으로 돌려준다. */
 export function recommendCourses(input: RecommendInput): RecommendResult {
   const recommendations: Recommendation[] = [];

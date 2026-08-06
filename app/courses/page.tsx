@@ -50,12 +50,18 @@ export default async function CoursesPage({
     interests,
   });
 
-  const backHref = `/plan`;
+  // 상세 화면에서도 같은 조건을 쓰도록 조건을 그대로 넘긴다
+  const query = new URLSearchParams(
+    Object.entries(params).flatMap(([key, value]) => {
+      const single = first(value);
+      return single === undefined ? [] : [[key, single] as [string, string]];
+    }),
+  ).toString();
 
   return (
     <main className="mx-auto w-full max-w-md flex-1 px-7 pb-14 pt-8">
       <Link
-        href={backHref}
+        href="/plan"
         className="eyebrow text-muted transition hover:text-foreground"
       >
         ← 조건 바꾸기
@@ -85,7 +91,7 @@ export default async function CoursesPage({
         <ol className="mt-8 space-y-8">
           {recommendations.map((item, index) => (
             <li key={item.course.id}>
-              <CourseCard item={item} rank={index + 1} />
+              <CourseCard item={item} rank={index + 1} query={query} />
             </li>
           ))}
         </ol>
@@ -105,11 +111,22 @@ function Meta({ label, value }: { label: string; value: string }) {
   );
 }
 
-function CourseCard({ item, rank }: { item: Recommendation; rank: number }) {
+function CourseCard({
+  item,
+  rank,
+  query,
+}: {
+  item: Recommendation;
+  rank: number;
+  query: string;
+}) {
   const { course, places, slackMinutes, returnAt, matchedInterests } = item;
+  const href = query
+    ? `/courses/${course.id}?${query}`
+    : `/courses/${course.id}`;
 
   return (
-    <Link href={`/courses/${course.id}`} className="group block">
+    <Link href={href} className="group block">
       <div className="relative aspect-[16/10] overflow-hidden rounded-sm bg-line">
         <Image
           src={course.image}

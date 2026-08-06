@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
@@ -74,26 +75,41 @@ export default function PlanPage() {
   }
 
   return (
-    <main className="mx-auto w-full max-w-md flex-1 px-7 pb-14 pt-8">
-      <Link
-        href="/"
-        className="eyebrow text-muted transition hover:text-foreground"
-      >
-        ← 틈새진주
-      </Link>
+    <main className="mx-auto w-full max-w-md flex-1">
+      <div className="relative h-60 bg-ink">
+        <Image
+          src="/images/hero-market.jpg"
+          alt=""
+          fill
+          priority
+          sizes="(max-width: 448px) 100vw, 448px"
+          className="object-cover object-[50%_35%] opacity-70 saturate-[0.8]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/30 to-black/75" />
 
-      <h1 className="mt-7 font-serif text-[1.75rem] font-semibold leading-snug tracking-tight">
-        지금 상황을
-        <br />
-        알려주세요
-      </h1>
-      <p className="mt-3 text-[0.8125rem] leading-relaxed text-muted">
-        다음 행사에 늦지 않도록 {SAFETY_MARGIN_MINUTES}분 여유를 두고
-        계산합니다.
-      </p>
+        <div className="relative flex h-full flex-col justify-between px-7 pb-6 pt-7 text-white">
+          <Link
+            href="/"
+            className="eyebrow text-white/60 transition hover:text-white"
+          >
+            ← 틈새진주
+          </Link>
 
-      <form onSubmit={handleSubmit} className="mt-10">
-        <Section title="어디에서, 무엇을 기다리나요">
+          <div>
+            <div className="h-px w-10 bg-white/40" />
+            <h1 className="mt-4 font-serif text-[1.75rem] font-semibold leading-snug tracking-tight">
+              지금 상황을 알려주세요
+            </h1>
+            <p className="mt-2.5 text-[0.8125rem] leading-relaxed text-white/70">
+              다음 행사에 늦지 않도록 {SAFETY_MARGIN_MINUTES}분 여유를 두고
+              계산합니다.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <form onSubmit={handleSubmit} className="px-7 pb-14 pt-9">
+        <Section step="01" title="어디에서, 무엇을 기다리나요">
           <Row label="현재 위치">
             <input
               type="text"
@@ -133,7 +149,7 @@ export default function PlanPage() {
           usableMinutes={usableMinutes}
         />
 
-        <Section title="어떻게 움직일까요">
+        <Section step="02" title="어떻게 움직일까요">
           <Row label="예산" value={`${budget.toLocaleString()}원`}>
             <input
               type="range"
@@ -158,7 +174,7 @@ export default function PlanPage() {
           </Row>
         </Section>
 
-        <Section title="무엇이 끌리나요">
+        <Section step="03" title="무엇이 끌리나요">
           <div className="flex flex-wrap gap-2 py-4">
             {INTERESTS.map((item) => {
               const selected = interests.includes(item);
@@ -197,15 +213,21 @@ const textInput =
   "w-full bg-transparent text-right text-[0.9375rem] outline-none placeholder:text-muted";
 
 function Section({
+  step,
   title,
   children,
 }: {
+  step: string;
   title: string;
   children: React.ReactNode;
 }) {
   return (
     <section className="mb-9">
-      <h2 className="eyebrow mb-1 text-muted">{title}</h2>
+      <h2 className="mb-1 flex items-center gap-2.5">
+        <span className="tnum eyebrow text-accent">{step}</span>
+        <span className="h-px w-4 bg-line" />
+        <span className="eyebrow text-muted">{title}</span>
+      </h2>
       <div className="divide-y divide-line border-b border-line">{children}</div>
     </section>
   );
@@ -257,7 +279,7 @@ function RemainBlock({
 
   if (invalid || tooTight) {
     return (
-      <p className="mb-9 border-l-2 border-line pl-4 text-[0.8125rem] leading-relaxed text-muted">
+      <p className="mb-9 rounded-sm border border-line bg-surface px-5 py-4 text-[0.8125rem] leading-relaxed text-muted">
         {invalid
           ? "행사 시작시각이 현재 시각보다 빠릅니다. 시간을 다시 확인해주세요."
           : `남은 시간 ${remainMinutes}분. 안전여유 ${SAFETY_MARGIN_MINUTES}분을 빼면 움직일 시간이 없습니다.`}
@@ -266,18 +288,26 @@ function RemainBlock({
   }
 
   return (
-    <div className="mb-9 border-l-2 border-accent pl-4">
-      <p className="eyebrow text-muted">남은 시간</p>
-      <p className="tnum mt-1.5 font-serif text-4xl font-semibold leading-none text-accent">
-        {remainMinutes}
-        <span className="ml-1 text-lg font-medium">분</span>
-      </p>
-      <p className="mt-2.5 text-[0.8125rem] leading-relaxed text-muted">
-        안전여유 {SAFETY_MARGIN_MINUTES}분을 빼고,{" "}
-        <strong className="tnum font-medium text-foreground">
-          {usableMinutes}분
-        </strong>{" "}
-        안에 다녀올 수 있는 코스를 찾습니다.
+    <div className="mb-9 rounded-sm border border-line bg-surface px-5 py-5">
+      <div className="flex items-end justify-between">
+        <div>
+          <p className="eyebrow text-muted">남은 시간</p>
+          <p className="tnum mt-2 font-serif text-[2.75rem] font-semibold leading-none">
+            {remainMinutes}
+            <span className="ml-1 text-lg font-medium text-muted">분</span>
+          </p>
+        </div>
+        <div className="text-right">
+          <p className="eyebrow text-accent">움직일 수 있는 시간</p>
+          <p className="tnum mt-2 font-serif text-2xl font-semibold leading-none text-accent">
+            {usableMinutes}
+            <span className="ml-0.5 text-sm font-medium">분</span>
+          </p>
+        </div>
+      </div>
+
+      <p className="mt-4 border-t border-line pt-3 text-[0.75rem] leading-relaxed text-muted">
+        행사에 늦지 않도록 안전여유 {SAFETY_MARGIN_MINUTES}분을 빼고 계산합니다.
       </p>
     </div>
   );

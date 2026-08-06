@@ -22,6 +22,7 @@ export const places: Place[] = [
     crowdLevel: 3,
     indoor: false,
     note: "포장이 빨라 시간이 촉박할 때 들르기 좋다.",
+    map: { x: 26, y: 58 },
   },
   {
     id: "p2",
@@ -36,6 +37,7 @@ export const places: Place[] = [
     crowdLevel: 1,
     indoor: true,
     note: "실크 소품을 직접 고르고 각인해 갈 수 있다.",
+    map: { x: 32, y: 40 },
   },
   {
     id: "p3",
@@ -50,6 +52,7 @@ export const places: Place[] = [
     crowdLevel: 2,
     indoor: false,
     note: "가장 가까운 간식 지점. 줄이 짧다.",
+    map: { x: 40, y: 68 },
   },
   {
     id: "p4",
@@ -64,6 +67,7 @@ export const places: Place[] = [
     crowdLevel: 2,
     indoor: false,
     note: "여러 점포를 한 번에 둘러볼 수 있는 골목 구간.",
+    map: { x: 48, y: 28 },
   },
   {
     id: "p5",
@@ -78,6 +82,7 @@ export const places: Place[] = [
     crowdLevel: 1,
     indoor: true,
     note: "앉아서 쉬어갈 수 있는 실내 공간.",
+    map: { x: 62, y: 44 },
   },
   {
     id: "p6",
@@ -92,6 +97,7 @@ export const places: Place[] = [
     crowdLevel: 1,
     indoor: true,
     note: "지역 책과 소품을 파는 작은 서점.",
+    map: { x: 80, y: 74 },
   },
   {
     id: "p7",
@@ -106,6 +112,7 @@ export const places: Place[] = [
     crowdLevel: 3,
     indoor: false,
     note: "행사장에서 가장 가깝다. 사람이 몰리는 편.",
+    map: { x: 56, y: 66 },
   },
   {
     id: "p8",
@@ -120,6 +127,7 @@ export const places: Place[] = [
     crowdLevel: 2,
     indoor: true,
     note: "앉아서 간단히 끼니를 해결할 수 있다.",
+    map: { x: 70, y: 60 },
   },
 ];
 

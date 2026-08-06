@@ -45,7 +45,12 @@ export type Place = {
   indoor: boolean;
   /** 한 줄 소개 */
   note: string;
+  /** 추상 지도 위 좌표 (0~100). 실제 위경도가 아니라 그림용 배치값이다. */
+  map: { x: number; y: number };
 };
+
+/** 추상 지도에서 축제장(출발지)이 놓이는 자리 */
+export const VENUE_MAP_POSITION = { x: 50, y: 76 };
 
 /** 코스 소요 구간 — 30·60·90분 */
 export type CourseSlot = 30 | 60 | 90;
