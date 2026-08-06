@@ -41,7 +41,7 @@ export function CheckInFlow({
     <>
       <div className="mt-7 flex items-baseline justify-between border-b border-line pb-3">
         <p className="eyebrow text-muted">{courseTitle}</p>
-        <p className="tnum text-[0.8125rem] font-medium">
+        <p role="status" aria-live="polite" className="tnum text-[0.8125rem] font-medium">
           {done.length}
           <span className="text-muted"> / {places.length} 곳 인증</span>
         </p>
@@ -68,7 +68,15 @@ export function CheckInFlow({
                 </span>
 
                 <div className="flex-1">
-                  <p className="text-[0.9375rem] font-medium">{place.name}</p>
+                  <p className="text-[0.9375rem] font-medium">
+                    {place.name}
+                    {/* 색만으로 인증 여부를 알리지 않는다 */}
+                    {checked ? (
+                      <span className="ml-2 align-middle text-[0.6875rem] font-medium text-accent">
+                        ✓ 인증 완료
+                      </span>
+                    ) : null}
+                  </p>
                   <p className="mt-1 text-[0.75rem] text-muted">{place.area}</p>
 
                   {checked ? (
@@ -89,6 +97,7 @@ export function CheckInFlow({
                       className="mt-3 inline-flex h-10 items-center justify-center rounded-sm bg-ink px-4 text-[0.8125rem] font-medium text-white transition hover:opacity-90"
                     >
                       여기서 QR 찍기
+                      <span className="sr-only"> — {place.name}</span>
                     </button>
                   )}
                 </div>
@@ -143,9 +152,16 @@ function Badge() {
 
 function ScanOverlay({ place }: { place: Place }) {
   return (
-    <div className="fixed inset-0 z-10 flex items-center justify-center bg-ink/85 px-8">
+    <div
+      role="status"
+      aria-live="assertive"
+      className="fixed inset-0 z-10 flex items-center justify-center bg-ink/85 px-8"
+    >
       <div className="w-full max-w-[17rem] text-center">
-        <div className="relative mx-auto aspect-square w-44 rounded-sm bg-white p-5 text-ink">
+        <div
+          aria-hidden
+          className="relative mx-auto aspect-square w-44 rounded-sm bg-white p-5 text-ink"
+        >
           <QrArt seed={place.id} />
           <span className="absolute inset-x-5 top-1/2 h-px animate-pulse bg-accent" />
         </div>

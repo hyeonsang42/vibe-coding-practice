@@ -155,37 +155,54 @@ function HourlyChart({ data }: { data: HourlyCheckIn[] }) {
 
   return (
     <div>
-      <div className="flex h-40 items-end gap-1.5 border-b border-line">
-        {data.map((item) => (
-          <div
-            key={item.hour}
-            className="flex flex-1 flex-col items-center justify-end gap-1.5"
-          >
-            <span className="tnum text-[0.625rem] text-muted">
-              {item.count}
-            </span>
+      {/* 그림은 눈으로 보는 용도. 같은 내용을 아래 글로도 제공한다. */}
+      <div aria-hidden>
+        <div className="flex h-40 items-end gap-1.5 border-b border-line">
+          {data.map((item) => (
             <div
-              className={`w-full rounded-t-[2px] ${
-                item.gap ? "bg-accent" : "bg-ink/15"
+              key={item.hour}
+              className="flex flex-1 flex-col items-center justify-end gap-1.5"
+            >
+              <span className="tnum text-[0.625rem] text-muted">
+                {item.count}
+              </span>
+              <div
+                className={`w-full rounded-t-[2px] ${
+                  item.gap ? "bg-accent" : "bg-ink/15"
+                }`}
+                style={{ height: `${(item.count / max) * 100}%` }}
+              />
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-2 flex gap-1.5">
+          {data.map((item) => (
+            <span
+              key={item.hour}
+              className={`tnum flex-1 text-center text-[0.625rem] ${
+                item.gap ? "font-medium text-accent" : "text-muted"
               }`}
-              style={{ height: `${(item.count / max) * 100}%` }}
-            />
-          </div>
-        ))}
+            >
+              {/* 색만으로 공백시간대를 알리지 않는다 */}
+              {item.gap ? "▲" : ""}
+              {item.hour}
+            </span>
+          ))}
+        </div>
       </div>
 
-      <div className="mt-2 flex gap-1.5">
+      <ul className="sr-only">
         {data.map((item) => (
-          <span
-            key={item.hour}
-            className={`tnum flex-1 text-center text-[0.625rem] ${
-              item.gap ? "font-medium text-accent" : "text-muted"
-            }`}
-          >
-            {item.hour}
-          </span>
+          <li key={item.hour}>
+            {item.hour}시 {item.count}건{item.gap ? " (공백시간대)" : ""}
+          </li>
         ))}
-      </div>
+      </ul>
+
+      <p className="mt-3 text-[0.6875rem] text-muted">
+        <span aria-hidden>▲</span> 표시가 축제 행사 사이의 공백시간대입니다.
+      </p>
     </div>
   );
 }
@@ -204,7 +221,7 @@ function RankingChart({
           <span className="w-24 shrink-0 truncate text-[0.75rem]">
             {place.name}
           </span>
-          <span className="flex h-5 flex-1 items-center">
+          <span aria-hidden className="flex h-5 flex-1 items-center">
             <span
               className={`h-full rounded-[2px] ${
                 index < 3 ? "bg-accent/70" : "bg-ink/15"
@@ -214,6 +231,7 @@ function RankingChart({
           </span>
           <span className="tnum w-10 shrink-0 text-right text-[0.75rem] text-muted">
             {count}
+            <span className="sr-only">건</span>
           </span>
         </li>
       ))}

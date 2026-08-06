@@ -158,6 +158,8 @@ export default function PlanPage() {
               step={1000}
               value={budget}
               onChange={(e) => setBudget(Number(e.target.value))}
+              aria-label="예산"
+              aria-valuetext={`${budget.toLocaleString()}원`}
               className="w-full accent-accent"
             />
           </Row>
@@ -169,6 +171,8 @@ export default function PlanPage() {
               step={1}
               value={walkLimit}
               onChange={(e) => setWalkLimit(Number(e.target.value))}
+              aria-label="감당 가능한 도보 시간"
+              aria-valuetext={`편도 ${walkLimit}분`}
               className="w-full accent-accent"
             />
           </Row>
@@ -190,7 +194,12 @@ export default function PlanPage() {
                       : "border-line bg-surface text-muted hover:border-muted"
                   }`}
                 >
+                  {/* 색만으로 선택 상태를 알리지 않는다 */}
+                  {selected ? <span aria-hidden>✓ </span> : null}
                   {item}
+                  <span className="sr-only">
+                    {selected ? " 선택됨" : " 선택 안 됨"}
+                  </span>
                 </button>
               );
             })}
@@ -210,7 +219,7 @@ export default function PlanPage() {
 }
 
 const textInput =
-  "w-full bg-transparent text-right text-[0.9375rem] outline-none placeholder:text-muted";
+  "w-full bg-transparent text-right text-[0.9375rem] outline-none placeholder:text-muted focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent";
 
 function Section({
   step,
@@ -279,7 +288,11 @@ function RemainBlock({
 
   if (invalid || tooTight) {
     return (
-      <p className="mb-9 rounded-sm border border-line bg-surface px-5 py-4 text-[0.8125rem] leading-relaxed text-muted">
+      <p
+        role="status"
+        aria-live="polite"
+        className="mb-9 rounded-sm border border-line bg-surface px-5 py-4 text-[0.8125rem] leading-relaxed text-muted"
+      >
         {invalid
           ? "행사 시작시각이 현재 시각보다 빠릅니다. 시간을 다시 확인해주세요."
           : `남은 시간 ${remainMinutes}분. 안전여유 ${SAFETY_MARGIN_MINUTES}분을 빼면 움직일 시간이 없습니다.`}
@@ -288,8 +301,17 @@ function RemainBlock({
   }
 
   return (
-    <div className="mb-9 rounded-sm border border-line bg-surface px-5 py-5">
-      <div className="flex items-end justify-between">
+    <div
+      role="status"
+      aria-live="polite"
+      className="mb-9 rounded-sm border border-line bg-surface px-5 py-5"
+    >
+      <p className="sr-only">
+        남은 시간 {remainMinutes}분, 안전여유 {SAFETY_MARGIN_MINUTES}분을 빼면
+        움직일 수 있는 시간은 {usableMinutes}분입니다.
+      </p>
+
+      <div aria-hidden className="flex items-end justify-between">
         <div>
           <p className="eyebrow text-muted">남은 시간</p>
           <p className="tnum mt-2 font-serif text-[2.75rem] font-semibold leading-none">
@@ -306,7 +328,10 @@ function RemainBlock({
         </div>
       </div>
 
-      <p className="mt-4 border-t border-line pt-3 text-[0.75rem] leading-relaxed text-muted">
+      <p
+        aria-hidden
+        className="mt-4 border-t border-line pt-3 text-[0.75rem] leading-relaxed text-muted"
+      >
         행사에 늦지 않도록 안전여유 {SAFETY_MARGIN_MINUTES}분을 빼고 계산합니다.
       </p>
     </div>
