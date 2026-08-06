@@ -52,6 +52,15 @@ export type Place = {
 /** 추상 지도에서 축제장(출발지)이 놓이는 자리 */
 export const VENUE_MAP_POSITION = { x: 50, y: 76 };
 
+/** 시간대별 방문 인증 수 (운영자 화면용, 시연용 가상 수치) */
+export type HourlyCheckIn = {
+  /** 0~23시 */
+  hour: number;
+  count: number;
+  /** 축제 행사와 행사 사이의 공백시간대인지 */
+  gap: boolean;
+};
+
 /** 코스 소요 구간 — 30·60·90분 */
 export type CourseSlot = 30 | 60 | 90;
 

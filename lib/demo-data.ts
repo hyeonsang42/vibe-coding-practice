@@ -6,7 +6,7 @@
  *    조사 후 실제 데이터로 교체하는 것을 전제로 한다.
  */
 
-import type { Course, Place } from "./types";
+import type { Course, HourlyCheckIn, Place } from "./types";
 
 export const places: Place[] = [
   {
@@ -175,6 +175,47 @@ export const courses: Course[] = [
     image: "/images/course-market.jpg",
   },
 ];
+
+/**
+ * 운영자 화면용 시연 데이터 — 모두 가상 수치다.
+ *
+ * 실제 도입 시에는 QR 인증 로그와 상점 운영자 입력값으로 채운다.
+ * (docs/requirements.md 6장 표기 의무)
+ */
+
+/** 상점별 방문 인증 수 */
+export const demoCheckIns: Record<string, number> = {
+  p7: 142,
+  p3: 118,
+  p1: 96,
+  p8: 74,
+  p4: 63,
+  p5: 52,
+  p2: 41,
+  p6: 28,
+};
+
+/** 시간대별 방문 인증 수 */
+export const demoHourly: HourlyCheckIn[] = [
+  { hour: 12, count: 18, gap: false },
+  { hour: 13, count: 34, gap: false },
+  { hour: 14, count: 52, gap: false },
+  { hour: 15, count: 88, gap: true },
+  { hour: 16, count: 61, gap: false },
+  { hour: 17, count: 43, gap: false },
+  { hour: 18, count: 96, gap: true },
+  { hour: 19, count: 74, gap: false },
+  { hour: 20, count: 68, gap: false },
+  { hour: 21, count: 45, gap: false },
+  { hour: 22, count: 35, gap: false },
+];
+
+/** 상점별 인증 수를 많은 순으로 돌려준다. */
+export function checkInRanking(): { place: Place; count: number }[] {
+  return places
+    .map((place) => ({ place, count: demoCheckIns[place.id] ?? 0 }))
+    .sort((a, b) => b.count - a.count);
+}
 
 /** id로 장소를 찾는다. 없으면 undefined. */
 export function findPlace(id: string): Place | undefined {
