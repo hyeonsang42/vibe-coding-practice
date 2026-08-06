@@ -136,6 +136,7 @@ export const courses: Course[] = [
     reason:
       "행사장에서 가장 가까운 두 곳만 묶었습니다. 이동이 짧아 시간이 빠듯할 때도 무리가 없습니다.",
     rainAlternative: "비가 오면 붕어빵 대신 실내인 진양김밥으로 바꿀 수 있습니다.",
+    image: "/images/course-snack.jpg",
   },
   {
     id: "c60",
@@ -149,6 +150,7 @@ export const courses: Course[] = [
     reason:
       "실내 찻집에서 앉아 쉰 뒤 돌아오는 길에 떡집을 들르는 동선입니다. 다리를 쉬어가기 좋습니다.",
     rainAlternative: "두 곳 중 찻집이 실내라 비가 와도 대부분 일정을 지킬 수 있습니다.",
+    image: "/images/course-cafe.jpg",
   },
   {
     id: "c90",
@@ -162,6 +164,7 @@ export const courses: Course[] = [
     reason:
       "골목시장을 둘러본 뒤 조용한 책방에서 마무리하는 코스입니다. 상권 안쪽까지 들어가 봅니다.",
     rainAlternative: "비가 오면 시장 구간을 줄이고 책방 체류를 늘리는 편이 좋습니다.",
+    image: "/images/course-market.jpg",
   },
 ];
 

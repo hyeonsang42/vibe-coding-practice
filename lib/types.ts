@@ -68,4 +68,6 @@ export type Course = {
   reason: string;
   /** 우천 시 대체 안내 */
   rainAlternative: string;
+  /** 카드에 쓰는 예시 이미지 경로 (진주에서 찍은 사진이 아니다) */
+  image: string;
 };
