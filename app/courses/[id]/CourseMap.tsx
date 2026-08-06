@@ -13,7 +13,7 @@ export function CourseMap({ places }: { places: Place[] }) {
 
   return (
     <figure className="mt-7">
-      <div className="relative aspect-[4/5] overflow-hidden rounded-sm border border-line bg-[#efece5]">
+      <div className="relative aspect-[4/5] overflow-hidden rounded-sm border border-line bg-surface">
         <svg
           viewBox="0 0 100 100"
           preserveAspectRatio="none"
@@ -23,11 +23,11 @@ export function CourseMap({ places }: { places: Place[] }) {
           {/* 남강 — 화면 아래를 가로지르는 물길 */}
           <path
             d="M -5 88 C 20 82, 38 96, 60 90 C 78 85, 90 94, 105 89 L 105 110 L -5 110 Z"
-            fill="#e3e6e1"
+            fill="#14313c"
           />
 
           {/* 큰길 */}
-          <g stroke="#e0dbd2" strokeWidth="1" vectorEffect="non-scaling-stroke">
+          <g stroke="#24303f" strokeWidth="1" vectorEffect="non-scaling-stroke">
             <line x1="0" y1="52" x2="100" y2="52" />
             <line x1="52" y1="0" x2="52" y2="84" />
             <line x1="18" y1="0" x2="24" y2="84" />
@@ -38,7 +38,7 @@ export function CourseMap({ places }: { places: Place[] }) {
           <polyline
             points={line}
             fill="none"
-            stroke="#9a4f24"
+            stroke="#f2b544"
             strokeWidth="1.5"
             strokeDasharray="4 3"
             strokeLinecap="round"
@@ -93,15 +93,15 @@ function Marker({
       style={{ left: `${x}%`, top: `${y}%` }}
     >
       {venue ? (
-        <span className="flex h-3.5 w-3.5 rotate-45 items-center justify-center border-2 border-ink bg-[#efece5]" />
+        <span className="flex h-3.5 w-3.5 rotate-45 items-center justify-center border-2 border-foreground bg-surface" />
       ) : (
-        <span className="tnum flex h-6 w-6 items-center justify-center rounded-full bg-accent text-[0.6875rem] font-medium text-white">
+        <span className="tnum flex h-6 w-6 items-center justify-center rounded-full bg-accent text-[0.6875rem] font-medium text-ink">
           {order}
         </span>
       )}
       <span
         className={`mt-1.5 whitespace-nowrap text-[0.625rem] leading-none ${
-          venue ? "font-medium text-ink" : "text-foreground/70"
+          venue ? "font-medium text-foreground" : "text-foreground/70"
         }`}
       >
         {label}

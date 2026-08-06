@@ -204,7 +204,7 @@ export default function PlanPage() {
                   aria-pressed={selected}
                   className={`rounded-sm border px-3.5 py-2 text-[0.8125rem] transition ${
                     selected
-                      ? "border-ink bg-ink text-white"
+                      ? "border-accent bg-accent text-ink"
                       : "border-line bg-surface text-muted hover:border-muted"
                   }`}
                 >
@@ -223,7 +223,7 @@ export default function PlanPage() {
         <button
           type="submit"
           disabled={!canSubmit}
-          className="mt-10 flex h-14 w-full items-center justify-center rounded-sm bg-ink text-[0.9375rem] font-medium tracking-tight text-white transition hover:opacity-90 disabled:bg-line disabled:text-muted"
+          className="mt-10 flex h-14 w-full items-center justify-center rounded-sm bg-accent text-[0.9375rem] font-medium tracking-tight text-ink transition hover:opacity-90 disabled:bg-line disabled:text-muted"
         >
           코스 추천받기
         </button>

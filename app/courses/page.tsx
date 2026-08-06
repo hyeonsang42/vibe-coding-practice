@@ -230,7 +230,7 @@ function EmptyState({ remainMinutes }: { remainMinutes: number }) {
       </p>
       <Link
         href="/plan"
-        className="mt-5 inline-flex h-11 items-center justify-center rounded-sm bg-ink px-5 text-[0.8125rem] font-medium text-white"
+        className="mt-5 inline-flex h-11 items-center justify-center rounded-sm bg-accent px-5 text-[0.8125rem] font-medium text-ink"
       >
         조건 바꾸기
       </Link>
