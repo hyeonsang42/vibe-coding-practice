@@ -1,26 +1,44 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f6f4f0;
+  --foreground: #1b1a17;
+  --muted: #7b756b;
+  --line: #e3ded5;
+  --surface: #ffffff;
+  --ink: #221f1a;
+  --accent: #9a4f24;
+  --accent-soft: #f0e6dc;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --font-sans: var(--font-sans-kr);
+  --font-serif: var(--font-serif-kr);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans-kr), "Apple SD Gothic Neo", "Malgun Gothic",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 숫자 폭을 고정해 시간·금액이 바뀌어도 줄이 흔들리지 않게 한다 */
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* 작은 분류 라벨 — 색은 쓰는 곳에서 정한다 */
+.eyebrow {
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
 }
