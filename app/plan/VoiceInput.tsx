@@ -135,7 +135,7 @@ export function VoiceInput({
         </>
       ) : (
         <>
-          <p className="mt-2.5 text-[0.8125rem] leading-relaxed">
+          <p className="rise-in mt-2.5 text-[0.8125rem] leading-relaxed">
             <span className="text-muted">들은 말 — </span>“{parsed.transcript}”
           </p>
 

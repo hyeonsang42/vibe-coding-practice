@@ -42,3 +42,46 @@ body {
   font-size: 0.6875rem;
   letter-spacing: 0.18em;
 }
+
+/*
+ * 움직임
+ *
+ * 기기에서 "동작 줄이기"를 켠 사용자에게는 아무 효과도 주지 않는다.
+ * 전정기관 질환이 있으면 화면 움직임에 어지럼증을 느낄 수 있다.
+ * 그래서 모든 규칙을 prefers-reduced-motion 안에만 둔다.
+ */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* 화면이 바뀔 때 — 살짝 올라오며 나타난다 */
+  main {
+    animation: rise-in 260ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  /* 눌렀을 때 반응했다는 느낌만 준다 */
+  button,
+  a[href] {
+    transition:
+      transform 120ms ease,
+      opacity 120ms ease;
+  }
+
+  button:active,
+  a[href]:active {
+    transform: scale(0.97);
+  }
+
+  /* 상태가 바뀌어 새로 나타나는 부분 */
+  .rise-in {
+    animation: rise-in 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}

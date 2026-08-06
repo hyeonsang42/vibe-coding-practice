@@ -80,7 +80,7 @@ export function CheckInFlow({
                   <p className="mt-1 text-[0.75rem] text-muted">{place.area}</p>
 
                   {checked ? (
-                    <div className="mt-3 border-t border-accent/25 pt-3">
+                    <div className="rise-in mt-3 border-t border-accent/25 pt-3">
                       <p className="eyebrow text-accent">받은 혜택</p>
                       <p className="mt-1.5 text-[0.8125rem] font-medium">
                         {place.benefit}
@@ -131,7 +131,7 @@ export function CheckInFlow({
 
 function Badge() {
   return (
-    <section className="mt-8 rounded-sm border border-ink bg-ink px-6 py-7 text-center text-white">
+    <section className="rise-in mt-8 rounded-sm border border-ink bg-ink px-6 py-7 text-center text-white">
       <p className="eyebrow text-white/50">코스 완주</p>
 
       <div className="mx-auto mt-4 flex h-20 w-20 items-center justify-center rounded-full border border-white/25">
@@ -157,7 +157,7 @@ function ScanOverlay({ place }: { place: Place }) {
       aria-live="assertive"
       className="fixed inset-0 z-10 flex items-center justify-center bg-ink/85 px-8"
     >
-      <div className="w-full max-w-[17rem] text-center">
+      <div className="rise-in w-full max-w-[17rem] text-center">
         <div
           aria-hidden
           className="relative mx-auto aspect-square w-44 rounded-sm bg-white p-5 text-ink"
