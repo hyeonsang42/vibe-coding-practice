@@ -145,7 +145,7 @@ export default function PlanPage() {
               type="time"
               value={now}
               onChange={(e) => setNow(e.target.value)}
-              className={`${textInput} tnum`}
+              className={`${timeInput} tnum`}
             />
           </Row>
           <Row label="행사 시작">
@@ -153,7 +153,7 @@ export default function PlanPage() {
               type="time"
               value={eventAt}
               onChange={(e) => setEventAt(e.target.value)}
-              className={`${textInput} tnum`}
+              className={`${timeInput} tnum`}
             />
           </Row>
         </Section>
@@ -232,8 +232,16 @@ export default function PlanPage() {
   );
 }
 
-const textInput =
-  "w-full bg-transparent text-right text-[0.9375rem] outline-none placeholder:text-muted focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent";
+const focusRing =
+  "outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent";
+
+const textInput = `w-full bg-transparent text-right text-[0.9375rem] placeholder:text-muted ${focusRing}`;
+
+/*
+ * time 입력은 브라우저가 내부에서 따로 그려서 text-right 가 먹지 않는다.
+ * 대신 입력칸 자체를 내용 폭에 맞추고, 줄 오른쪽 끝으로 밀어 붙인다.
+ */
+const timeInput = `bg-transparent text-[0.9375rem] ${focusRing}`;
 
 function Section({
   step,
@@ -283,7 +291,9 @@ function Row({
           <span className="tnum text-[0.9375rem] font-medium">{value}</span>
         ) : null}
       </span>
-      <span className={stacked ? "mt-3 block" : "flex-1"}>{children}</span>
+      <span className={stacked ? "mt-3 block" : "flex flex-1 justify-end"}>
+        {children}
+      </span>
     </label>
   );
 }
