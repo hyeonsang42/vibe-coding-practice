@@ -125,8 +125,8 @@ export function VoiceInput({
             aria-pressed={listening}
             className={`mt-4 inline-flex h-11 items-center gap-2.5 rounded-sm px-4 text-[0.8125rem] font-medium transition ${
               listening
-                ? "bg-water text-ink"
-                : "bg-accent text-ink hover:opacity-90"
+                ? "bg-accent text-white"
+                : "bg-ink text-white hover:opacity-90"
             }`}
           >
             <MicIcon listening={listening} />
@@ -163,7 +163,7 @@ export function VoiceInput({
                   onApply(parsed);
                   setParsed(null);
                 }}
-                className="h-11 flex-1 rounded-sm bg-accent text-[0.8125rem] font-medium text-ink transition hover:opacity-90"
+                className="h-11 flex-1 rounded-sm bg-ink text-[0.8125rem] font-medium text-white transition hover:opacity-90"
               >
                 이대로 채우기
               </button>

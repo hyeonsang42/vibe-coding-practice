@@ -112,7 +112,7 @@ export default async function CourseDetailPage({
 
       <Link
         href={checkInHref}
-        className="mt-9 flex h-14 w-full items-center justify-center rounded-sm bg-accent text-[0.9375rem] font-medium tracking-tight text-ink transition hover:opacity-90"
+        className="mt-9 flex h-14 w-full items-center justify-center rounded-sm bg-ink text-[0.9375rem] font-medium tracking-tight text-white transition hover:opacity-90"
       >
         상점에서 QR 찍기
       </Link>

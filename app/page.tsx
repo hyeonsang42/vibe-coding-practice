@@ -52,7 +52,7 @@ export default function Home() {
         <div className="mt-10">
           <Link
             href="/plan"
-            className="flex h-14 w-full items-center justify-center rounded-sm bg-accent text-[0.9375rem] font-medium tracking-tight text-ink transition hover:opacity-90"
+            className="flex h-14 w-full items-center justify-center rounded-sm bg-white text-[0.9375rem] font-medium tracking-tight text-ink transition hover:bg-white/90"
           >
             남은 시간 알려주기
           </Link>

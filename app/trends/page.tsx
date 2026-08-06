@@ -44,7 +44,7 @@ export default function TrendsPage() {
         <ol className="divide-y divide-line border-y border-line">
           {today.slice(0, 3).map(({ place, count }, index) => (
             <li key={place.id} className="flex items-center gap-4 py-3.5">
-              <span className="tnum flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent text-[0.75rem] font-medium text-ink">
+              <span className="tnum flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent text-[0.75rem] font-medium text-white">
                 {index + 1}
               </span>
               <span className="flex-1">
@@ -128,7 +128,7 @@ export default function TrendsPage() {
 
       <Link
         href="/plan"
-        className="mt-10 flex h-14 w-full items-center justify-center rounded-sm bg-accent text-[0.9375rem] font-medium tracking-tight text-ink transition hover:opacity-90"
+        className="mt-10 flex h-14 w-full items-center justify-center rounded-sm bg-ink text-[0.9375rem] font-medium tracking-tight text-white transition hover:opacity-90"
       >
         나도 코스 추천받기
       </Link>
@@ -222,7 +222,7 @@ function CategoryChart({
             <span aria-hidden className="mt-1.5 flex h-2 rounded-[2px] bg-line">
               <span
                 className={`h-full rounded-[2px] ${
-                  index === 0 ? "bg-accent" : "bg-water/45"
+                  index === 0 ? "bg-accent" : "bg-ink/25"
                 }`}
                 style={{ width: `${share}%` }}
               />
@@ -248,7 +248,7 @@ function HourlyChart({ data }: { data: HourlyCheckIn[] }) {
             >
               <div
                 className={`w-full rounded-t-[2px] ${
-                  item.gap ? "bg-accent" : "bg-foreground/15"
+                  item.gap ? "bg-accent" : "bg-ink/15"
                 }`}
                 style={{ height: `${(item.count / max) * 100}%` }}
               />

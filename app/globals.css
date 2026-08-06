@@ -1,28 +1,14 @@
 @import "tailwindcss";
 
-/*
- * 밤의 유등
- *
- * 남강유등축제는 밤에 열린다. 어두운 축제장에서 쓰는 화면이라
- * 짙은 남색 위에 등불색을 얹는다. 순수 검정은 쓰지 않는다 —
- * 발표용 프로젝터에서 뭉개지고, 밤하늘도 검정이 아니다.
- */
 :root {
-  --background: #0d1520;
-  --surface: #151f2c;
-  --foreground: #edf1f6;
-  --muted: #8695a8;
-  --line: #24303f;
-
-  /* 유등 불빛 */
-  --accent: #f2b544;
-  --accent-soft: #2b2214;
-
-  /* 남강 물빛 — 보조색 */
-  --water: #4fb3a8;
-
-  /* 밝은 버튼 위에 얹는 글자색 = 배경색 */
-  --ink: #0d1520;
+  --background: #f6f4f0;
+  --foreground: #1b1a17;
+  --muted: #7b756b;
+  --line: #e3ded5;
+  --surface: #ffffff;
+  --ink: #221f1a;
+  --accent: #9a4f24;
+  --accent-soft: #f0e6dc;
 }
 
 @theme inline {
@@ -34,7 +20,6 @@
   --color-ink: var(--ink);
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
-  --color-water: var(--water);
   --font-sans: var(--font-sans-kr);
   --font-serif: var(--font-serif-kr);
 }

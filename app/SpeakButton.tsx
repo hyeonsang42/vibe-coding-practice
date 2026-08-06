@@ -131,7 +131,7 @@ export function SpeakButton({
       aria-pressed={speaking}
       className={`inline-flex h-11 items-center gap-2 rounded-sm border px-4 text-[0.8125rem] font-medium transition ${
         speaking
-          ? "border-accent bg-accent text-ink"
+          ? "border-accent bg-accent text-white"
           : "border-accent/40 bg-accent-soft text-accent hover:border-accent"
       } ${className}`}
     >

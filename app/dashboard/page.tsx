@@ -168,7 +168,7 @@ function HourlyChart({ data }: { data: HourlyCheckIn[] }) {
               </span>
               <div
                 className={`w-full rounded-t-[2px] ${
-                  item.gap ? "bg-accent" : "bg-foreground/15"
+                  item.gap ? "bg-accent" : "bg-ink/15"
                 }`}
                 style={{ height: `${(item.count / max) * 100}%` }}
               />
@@ -224,7 +224,7 @@ function RankingChart({
           <span aria-hidden className="flex h-5 flex-1 items-center">
             <span
               className={`h-full rounded-[2px] ${
-                index < 3 ? "bg-accent/80" : "bg-water/45"
+                index < 3 ? "bg-accent/70" : "bg-ink/15"
               }`}
               style={{ width: `${(count / max) * 100}%` }}
             />
