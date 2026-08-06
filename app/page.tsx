@@ -65,10 +65,10 @@ export default function Home() {
 
           <div className="mt-5 text-center">
             <Link
-              href="/dashboard"
+              href="/trends"
               className="eyebrow text-white/40 underline-offset-4 transition hover:text-white/70 hover:underline"
             >
-              운영자 화면 보기
+              다른 사람들은 어디 갔을까
             </Link>
           </div>
         </div>

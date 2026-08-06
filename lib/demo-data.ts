@@ -6,7 +6,7 @@
  *    조사 후 실제 데이터로 교체하는 것을 전제로 한다.
  */
 
-import type { Course, HourlyCheckIn, Place } from "./types";
+import type { Course, HourlyCheckIn, Place, PlaceCategory } from "./types";
 
 export const places: Place[] = [
   {
@@ -209,6 +209,61 @@ export const demoHourly: HourlyCheckIn[] = [
   { hour: 21, count: 45, gap: false },
   { hour: 22, count: 35, gap: false },
 ];
+
+/** 이번 주 누적 방문 인증 수와 지난주 순위 */
+export const demoWeekly: Record<
+  string,
+  { count: number; lastWeekRank: number }
+> = {
+  p7: { count: 812, lastWeekRank: 1 },
+  p3: { count: 690, lastWeekRank: 2 },
+  p1: { count: 604, lastWeekRank: 4 },
+  p4: { count: 521, lastWeekRank: 3 },
+  p8: { count: 468, lastWeekRank: 5 },
+  p5: { count: 337, lastWeekRank: 7 },
+  p2: { count: 289, lastWeekRank: 6 },
+  p6: { count: 196, lastWeekRank: 8 },
+};
+
+/** 이번 주 순위 — 방문이 많은 순. 지난주 대비 변동도 함께 낸다. */
+export function weeklyRanking(): {
+  place: Place;
+  count: number;
+  rank: number;
+  change: number;
+}[] {
+  return places
+    .map((place) => ({
+      place,
+      count: demoWeekly[place.id]?.count ?? 0,
+      lastWeekRank: demoWeekly[place.id]?.lastWeekRank ?? 0,
+    }))
+    .sort((a, b) => b.count - a.count)
+    .map((item, index) => ({
+      place: item.place,
+      count: item.count,
+      rank: index + 1,
+      // 양수면 순위가 올랐다는 뜻
+      change: item.lastWeekRank === 0 ? 0 : item.lastWeekRank - (index + 1),
+    }));
+}
+
+/** 분야별 이번 주 방문 수 — 많은 순 */
+export function weeklyByCategory(): {
+  category: PlaceCategory;
+  count: number;
+}[] {
+  const totals = new Map<PlaceCategory, number>();
+
+  for (const place of places) {
+    const count = demoWeekly[place.id]?.count ?? 0;
+    totals.set(place.category, (totals.get(place.category) ?? 0) + count);
+  }
+
+  return Array.from(totals, ([category, count]) => ({ category, count })).sort(
+    (a, b) => b.count - a.count,
+  );
+}
 
 /** 상점별 인증 수를 많은 순으로 돌려준다. */
 export function checkInRanking(): { place: Place; count: number }[] {
