@@ -138,6 +138,15 @@ export default function TrendsPage() {
         구성을 보여주기 위한 가상 데이터이며, 진주의 실제 방문 규모와는 관계가
         없습니다.
       </p>
+
+      <div className="mt-5">
+        <Link
+          href="/dashboard"
+          className="eyebrow text-muted underline-offset-4 transition hover:text-foreground hover:underline"
+        >
+          상권 운영자 화면 보기 →
+        </Link>
+      </div>
     </main>
   );
 }
