@@ -77,6 +77,7 @@ export default async function CourseDetailPage({
       <div className="mt-6">
         <SpeakButton
           label="동선 전체 듣기"
+          className="w-full justify-center"
           text={itinerarySpeech({ course, steps, eventName, gapMinutes })}
         />
       </div>

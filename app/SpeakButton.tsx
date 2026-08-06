@@ -35,7 +35,7 @@ export function SpeakButton({
   className?: string;
 }) {
   const [speaking, setSpeaking] = useState(false);
-  const startedRef = useRef(false);
+  const keepAliveRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const supported = useSyncExternalStore(
     subscribeNothing,
@@ -43,9 +43,17 @@ export function SpeakButton({
     () => false,
   );
 
+  function clearKeepAlive() {
+    if (keepAliveRef.current !== null) {
+      clearInterval(keepAliveRef.current);
+      keepAliveRef.current = null;
+    }
+  }
+
   // 화면을 떠나면 소리도 멈춘다
   useEffect(() => {
     return () => {
+      clearKeepAlive();
       if (isSupported()) window.speechSynthesis.cancel();
     };
   }, []);
@@ -53,23 +61,41 @@ export function SpeakButton({
   function speak() {
     const synth = window.speechSynthesis;
     synth.cancel();
-
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = "ko-KR";
-    utterance.rate = 0.95;
-
-    const voice = pickKoreanVoice();
-    if (voice) utterance.voice = voice;
-
-    utterance.onend = () => setSpeaking(false);
-    utterance.onerror = () => setSpeaking(false);
-
-    startedRef.current = true;
     setSpeaking(true);
-    synth.speak(utterance);
+
+    // Chrome은 cancel() 직후 speak()을 부르면 소리를 삼킨다. 한 박자 늦춘다.
+    window.setTimeout(() => {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = "ko-KR";
+      utterance.rate = 0.95;
+
+      const voice = pickKoreanVoice();
+      if (voice) utterance.voice = voice;
+
+      const finish = () => {
+        clearKeepAlive();
+        setSpeaking(false);
+      };
+      utterance.onend = finish;
+      utterance.onerror = finish;
+
+      synth.speak(utterance);
+
+      // Chrome은 15초쯤 지나면 긴 문장을 끊는다. 주기적으로 깨워준다.
+      clearKeepAlive();
+      keepAliveRef.current = setInterval(() => {
+        if (!synth.speaking) {
+          clearKeepAlive();
+          return;
+        }
+        synth.pause();
+        synth.resume();
+      }, 9000);
+    }, 60);
   }
 
   function stop() {
+    clearKeepAlive();
     window.speechSynthesis.cancel();
     setSpeaking(false);
   }
@@ -81,14 +107,14 @@ export function SpeakButton({
       type="button"
       onClick={speaking ? stop : speak}
       aria-pressed={speaking}
-      className={`inline-flex h-10 items-center gap-2 rounded-sm border px-3.5 text-[0.75rem] font-medium transition ${
+      className={`inline-flex h-11 items-center gap-2 rounded-sm border px-4 text-[0.8125rem] font-medium transition ${
         speaking
           ? "border-accent bg-accent text-white"
-          : "border-line bg-surface text-foreground hover:border-muted"
+          : "border-accent/40 bg-accent-soft text-accent hover:border-accent"
       } ${className}`}
     >
       {speaking ? <StopIcon /> : <SoundIcon />}
-      {speaking ? "멈추기" : label}
+      {speaking ? "읽는 중… 멈추기" : label}
     </button>
   );
 }
@@ -99,14 +125,15 @@ function SoundIcon() {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="1.6"
+      strokeWidth="1.7"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="h-3.5 w-3.5"
+      className="h-4 w-4"
       aria-hidden
     >
       <path d="M4 9v6h4l5 4V5L8 9H4z" />
       <path d="M17 8.5a5 5 0 0 1 0 7" />
+      <path d="M19.5 6a9 9 0 0 1 0 12" />
     </svg>
   );
 }
@@ -116,7 +143,7 @@ function StopIcon() {
     <svg
       viewBox="0 0 24 24"
       fill="currentColor"
-      className="h-3.5 w-3.5"
+      className="h-4 w-4 animate-pulse"
       aria-hidden
     >
       <rect x="6" y="6" width="12" height="12" rx="1.5" />
