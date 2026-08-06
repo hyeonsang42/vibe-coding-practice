@@ -11,8 +11,19 @@ function subscribeNothing() {
   return () => {};
 }
 
+/**
+ * 읽어주기를 쓸 수 있는지 본다.
+ *
+ * speechSynthesis 만 보면 부족하다. 카카오톡·인스타그램 같은 앱 안에서 열린
+ * 브라우저(인앱 브라우저)는 객체는 있는데 실제로 읽지 못하는 경우가 있어,
+ * 문장을 만드는 생성자까지 함께 확인한다.
+ */
 function isSupported(): boolean {
-  return typeof window !== "undefined" && "speechSynthesis" in window;
+  if (typeof window === "undefined") return false;
+  return (
+    "speechSynthesis" in window &&
+    typeof window.SpeechSynthesisUtterance === "function"
+  );
 }
 
 /** 한국어 목소리를 고른다. 없으면 브라우저 기본값에 맡긴다. */
@@ -100,7 +111,18 @@ export function SpeakButton({
     setSpeaking(false);
   }
 
-  if (!supported) return null;
+  // 지원하지 않으면 조용히 사라지지 않고, 왜 안 되는지 알려준다
+  if (!supported) {
+    return (
+      <p
+        className={`text-[0.75rem] leading-relaxed text-muted ${className}`}
+      >
+        이 브라우저에서는 소리로 읽어주기를 쓸 수 없습니다. 카카오톡·인스타그램
+        안에서 열었다면 <strong className="font-medium">Chrome이나 삼성
+        인터넷으로 열기</strong>를 눌러주세요.
+      </p>
+    );
+  }
 
   return (
     <button
