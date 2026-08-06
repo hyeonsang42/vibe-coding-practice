@@ -2,8 +2,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { CourseMap } from "./CourseMap";
+import { SpeakButton } from "../../SpeakButton";
 import { courses, getCoursePlaces } from "@/lib/demo-data";
 import { buildItinerary, formatTime, parseTime } from "@/lib/recommend";
+import { itinerarySpeech } from "@/lib/speech-text";
 import type { ItineraryStep } from "@/lib/recommend";
 import { FESTIVAL_VENUE, SAFETY_MARGIN_MINUTES } from "@/lib/types";
 
@@ -71,6 +73,13 @@ export default async function CourseDetailPage({
         returnAt={formatTime(returnMinutes)}
         gapMinutes={gapMinutes}
       />
+
+      <div className="mt-6">
+        <SpeakButton
+          label="동선 전체 듣기"
+          text={itinerarySpeech({ course, steps, eventName, gapMinutes })}
+        />
+      </div>
 
       <section className="mt-9">
         <h2 className="eyebrow text-muted">이동 순서</h2>

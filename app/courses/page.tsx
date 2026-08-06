@@ -1,7 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { SpeakButton } from "../SpeakButton";
 import { parseTime, recommendCourses } from "@/lib/recommend";
+import { courseSpeech } from "@/lib/speech-text";
 import type { Recommendation, RejectReason } from "@/lib/recommend";
 import { DEMO_DATA_LABEL, SAFETY_MARGIN_MINUTES } from "@/lib/types";
 import type { PlaceCategory } from "@/lib/types";
@@ -126,6 +128,7 @@ function CourseCard({
     : `/courses/${course.id}`;
 
   return (
+    <>
     <Link href={href} className="group block">
       <div className="relative aspect-[16/10] overflow-hidden rounded-sm bg-line">
         <Image
@@ -180,6 +183,15 @@ function CourseCard({
         </p>
       ) : null}
     </Link>
+
+    {/* 링크 안에 버튼을 넣을 수 없어 밖으로 뺀다 */}
+    <div className="mt-3.5">
+      <SpeakButton
+        label="이 코스 듣기"
+        text={courseSpeech({ course, places, returnAt, slackMinutes })}
+      />
+    </div>
+    </>
   );
 }
 
