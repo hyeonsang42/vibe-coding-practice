@@ -5,8 +5,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 
+import { VoiceInput } from "./VoiceInput";
 import { FESTIVAL_VENUE, SAFETY_MARGIN_MINUTES } from "@/lib/types";
 import type { PlaceCategory } from "@/lib/types";
+import type { ParsedVoice } from "@/lib/voice-parse";
 
 const INTERESTS: PlaceCategory[] = [
   "간식",
@@ -47,6 +49,15 @@ export default function PlanPage() {
     remainMinutes === null ? null : remainMinutes - SAFETY_MARGIN_MINUTES;
 
   const canSubmit = usableMinutes !== null && usableMinutes > 0;
+
+  /** 말로 알아낸 값만 폼에 채운다. 못 알아낸 항목은 그대로 둔다. */
+  function applyVoice(parsed: ParsedVoice) {
+    if (parsed.now) setNow(parsed.now);
+    if (parsed.eventAt) setEventAt(parsed.eventAt);
+    if (parsed.budget) setBudget(parsed.budget);
+    if (parsed.walkLimit) setWalkLimit(parsed.walkLimit);
+    if (parsed.interests?.length) setInterests(parsed.interests);
+  }
 
   function toggleInterest(value: PlaceCategory) {
     setInterests((prev) =>
@@ -109,6 +120,8 @@ export default function PlanPage() {
       </div>
 
       <form onSubmit={handleSubmit} className="px-7 pb-14 pt-9">
+        <VoiceInput onApply={applyVoice} />
+
         <Section step="01" title="어디에서, 무엇을 기다리나요">
           <Row label="현재 위치">
             <input
