@@ -4,16 +4,16 @@ import Link from "next/link";
 /** 화면 1 — 시작 화면 (docs/requirements.md 3장) */
 export default function Home() {
   return (
-    <main className="relative flex flex-1 flex-col">
+    <main className="relative flex flex-1 flex-col bg-ink">
       <Image
         src="/images/hero-market.jpg"
         alt=""
         fill
         priority
         sizes="100vw"
-        className="object-cover"
+        className="object-cover opacity-80 saturate-[0.85]"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/45 to-black/85" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/35 to-black/80" />
 
       <div className="relative mx-auto flex w-full max-w-md flex-1 flex-col justify-between px-7 pb-10 pt-12 text-white">
         <div>
