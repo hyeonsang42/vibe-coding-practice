@@ -23,7 +23,7 @@ export const places: Place[] = [
     indoor: false,
     note: "포장이 빨라 시간이 촉박할 때 들르기 좋다.",
     map: { x: 26, y: 58 },
-    coord: { lat: 35.1905, lng: 128.0779 },
+    coord: { lat: 35.1916, lng: 128.0782 },
   },
   {
     id: "p2",
@@ -39,13 +39,13 @@ export const places: Place[] = [
     indoor: true,
     note: "실크 소품을 직접 고르고 각인해 갈 수 있다.",
     map: { x: 32, y: 40 },
-    coord: { lat: 35.1922, lng: 128.0795 },
+    coord: { lat: 35.193, lng: 128.0796 },
   },
   {
     id: "p3",
     name: "골목붕어빵",
     category: "간식",
-    area: "남강 산책로 초입",
+    area: "진주성 동문 방면",
     walkMinutes: 4,
     stayMinutes: 8,
     spend: 3000,
@@ -55,7 +55,7 @@ export const places: Place[] = [
     indoor: false,
     note: "가장 가까운 간식 지점. 줄이 짧다.",
     map: { x: 40, y: 68 },
-    coord: { lat: 35.1886, lng: 128.083 },
+    coord: { lat: 35.1918, lng: 128.08 },
   },
   {
     id: "p4",
@@ -71,7 +71,7 @@ export const places: Place[] = [
     indoor: false,
     note: "여러 점포를 한 번에 둘러볼 수 있는 골목 구간.",
     map: { x: 48, y: 28 },
-    coord: { lat: 35.1938, lng: 128.0857 },
+    coord: { lat: 35.1943, lng: 128.0857 },
   },
   {
     id: "p5",
@@ -87,13 +87,13 @@ export const places: Place[] = [
     indoor: true,
     note: "앉아서 쉬어갈 수 있는 실내 공간.",
     map: { x: 62, y: 44 },
-    coord: { lat: 35.1928, lng: 128.084 },
+    coord: { lat: 35.1934, lng: 128.0838 },
   },
   {
     id: "p6",
     name: "남강책방",
     category: "문화공간",
-    area: "남강 둔치 인근",
+    area: "대안동 안쪽 골목",
     walkMinutes: 10,
     stayMinutes: 25,
     spend: 5000,
@@ -103,7 +103,7 @@ export const places: Place[] = [
     indoor: true,
     note: "지역 책과 소품을 파는 작은 서점.",
     map: { x: 80, y: 74 },
-    coord: { lat: 35.1875, lng: 128.087 },
+    coord: { lat: 35.1926, lng: 128.0865 },
   },
   {
     id: "p7",
@@ -119,7 +119,7 @@ export const places: Place[] = [
     indoor: false,
     note: "행사장에서 가장 가깝다. 사람이 몰리는 편.",
     map: { x: 56, y: 66 },
-    coord: { lat: 35.1901, lng: 128.0818 },
+    coord: { lat: 35.1913, lng: 128.0814 },
   },
   {
     id: "p8",
@@ -135,7 +135,7 @@ export const places: Place[] = [
     indoor: true,
     note: "앉아서 간단히 끼니를 해결할 수 있다.",
     map: { x: 70, y: 60 },
-    coord: { lat: 35.1897, lng: 128.0845 },
+    coord: { lat: 35.1921, lng: 128.0832 },
   },
 ];
 

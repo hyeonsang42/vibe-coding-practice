@@ -58,8 +58,11 @@ export type Place = {
 /** 추상 지도에서 축제장(출발지)이 놓이는 자리 */
 export const VENUE_MAP_POSITION = { x: 50, y: 76 };
 
-/** 축제장 위경도 (시연용 — 진주성 남강변 부근) */
-export const VENUE_COORD = { lat: 35.1893, lng: 128.0812 };
+/**
+ * 축제장 위경도 (시연용 — 진주성 일대. 실제 행사장 좌표로 교체 필요)
+ * 강 위에 찍히지 않도록 남강 북쪽 육지 기준으로 잡았다.
+ */
+export const VENUE_COORD = { lat: 35.1907, lng: 128.0808 };
 
 /** 시간대별 방문 인증 수 (운영자 화면용, 시연용 가상 수치) */
 export type HourlyCheckIn = {
