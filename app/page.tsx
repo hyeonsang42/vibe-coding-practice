@@ -72,9 +72,41 @@ export default function Home() {
             <br />
             장소·수치·사진은 모두 시연용 예시입니다
           </p>
+
+          {/* 팀원이 만든 다른 사이트. 새 탭으로 열어 시연 흐름을 끊지 않는다 */}
+          <div className="mt-6">
+            <a
+              href="https://vhepier7993-bot.github.io/ararararara/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-[0.6875rem] text-white/40 underline-offset-4 transition hover:text-white/70 hover:underline"
+            >
+              심심풀이
+              <ExternalIcon />
+              <span className="sr-only">(새 창에서 열림)</span>
+            </a>
+          </div>
         </div>
       </div>
     </main>
+  );
+}
+
+function ExternalIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="h-2.5 w-2.5"
+      aria-hidden
+    >
+      <path d="M7 17 17 7" />
+      <path d="M9 7h8v8" />
+    </svg>
   );
 }
 
