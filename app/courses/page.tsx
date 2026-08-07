@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { JinjuVoice } from "./JinjuVoice";
 import { SpeakButton } from "../SpeakButton";
 import { formatDuration } from "@/lib/format";
 import { parseTime, recommendCourses } from "@/lib/recommend";
@@ -101,6 +102,8 @@ export default async function CoursesPage({
       )}
 
       {rejected.length > 0 ? <RejectedNote rejected={rejected} /> : null}
+
+      <JinjuVoice />
     </main>
   );
 }
