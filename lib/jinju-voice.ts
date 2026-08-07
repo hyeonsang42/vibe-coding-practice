@@ -12,6 +12,9 @@ export type VoiceStory = {
   area: string;
   title: string;
   body: string;
+  image: string;
+  /** 사진 출처 — 자유 라이선스라도 저작자 표기는 남긴다 */
+  credit: string;
 };
 
 export const jinjuStories: VoiceStory[] = [
@@ -20,24 +23,32 @@ export const jinjuStories: VoiceStory[] = [
     area: "진주성 · 촉석루",
     title: "남강을 내려다보는 누각",
     body: "촉석루는 남강 절벽 위에 서서 강을 내려다보는 누각입니다. 임진왜란 때 진주성은 큰 싸움의 무대가 되었고, 그 이야기가 지금까지 이 일대에 남아 있습니다. 성벽을 따라 걷다 보면 강바람이 들이치는 자리가 있는데, 사람들이 오래 머무는 곳이 대개 거기입니다.",
+    image: "/images/st-jinjuseong.jpg",
+    credit: "진주성과 남강 · Kang Byeong Kee, CC BY 3.0 (위키미디어 공용)",
   },
   {
     id: "s2",
     area: "남강 · 유등",
     title: "강 위에 등을 띄우는 이유",
     body: "남강에 등을 띄우는 풍습은 진주성 싸움에서 비롯되었다고 전해집니다. 등불로 신호를 주고받고, 성 밖 가족에게 소식을 전하는 수단이었다는 이야기입니다. 지금은 축제가 되었지만, 물 위의 불빛이 누군가에게 보내는 신호였다는 점은 그대로 남아 있습니다.",
+    image: "/images/st-yudeung.jpg",
+    credit: "진주남강유등축제 · Asfreeas, CC BY 3.0 (위키미디어 공용)",
   },
   {
     id: "s3",
     area: "중앙시장 골목",
     title: "육회를 얹은 비빔밥",
     body: "진주에서는 비빔밥에 익힌 고기 대신 육회를 얹습니다. 나물을 색깔별로 둘러 담아 꽃처럼 보인다고 해서 화반이라 부르기도 했습니다. 시장 골목의 오래된 국숫집과 빵집도 이 동네 사람들이 오래 드나든 자리입니다.",
+    image: "/images/st-bibimbap.jpg",
+    credit: "진주비빔밥 · shizu k, CC BY-SA 2.0 (위키미디어 공용)",
   },
   {
     id: "s4",
     area: "진주 실크",
     title: "비단을 짜던 도시",
     body: "진주는 오랫동안 비단을 짜온 도시로 알려져 있습니다. 지금도 실크로 만든 스카프나 손수건을 파는 가게들이 남아 있어, 가볍게 들고 갈 기념품을 고르기 좋습니다. 축제장 근처에서도 어렵지 않게 찾을 수 있습니다.",
+    image: "/images/st-silk.jpg",
+    credit: "비단 원단 · Unsplash",
   },
 ];
 

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 
 import { SpeakButton } from "../SpeakButton";
@@ -29,7 +30,20 @@ export function JinjuVoice() {
         <ul className="mt-6 space-y-7">
           {jinjuStories.map((story) => (
             <li key={story.id} className="rise-in">
-              <p className="eyebrow text-muted">{story.area}</p>
+              <div className="relative aspect-[16/10] overflow-hidden rounded-sm bg-line">
+                <Image
+                  src={story.image}
+                  alt=""
+                  fill
+                  sizes="(max-width: 448px) 100vw, 448px"
+                  className="object-cover"
+                />
+              </div>
+              <p className="mt-2 text-[0.625rem] leading-relaxed text-muted">
+                {story.credit}
+              </p>
+
+              <p className="eyebrow mt-3.5 text-muted">{story.area}</p>
               <h3 className="mt-1.5 font-serif text-base font-semibold">
                 {story.title}
               </h3>
