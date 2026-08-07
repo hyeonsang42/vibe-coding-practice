@@ -57,22 +57,40 @@ export default function Home() {
             남은 시간 알려주기
           </Link>
 
-          <p className="mt-4 text-center text-[0.6875rem] leading-relaxed text-white/45">
+          {/* 부차적이지만 버튼으로 읽혀야 한다 */}
+          <Link
+            href="/trends"
+            className="mt-3 flex h-12 w-full items-center justify-center gap-2 rounded-sm border border-white/40 bg-white/10 text-[0.875rem] font-medium text-white backdrop-blur-[2px] transition hover:bg-white/20"
+          >
+            다른 사람들은 어디 갔을까
+            <ArrowIcon />
+          </Link>
+
+          <p className="mt-5 text-center text-[0.6875rem] leading-relaxed text-white/45">
             GNU AI Pioneer 캠프 프로토타입
             <br />
             장소·수치·사진은 모두 시연용 예시입니다
           </p>
-
-          <div className="mt-5 text-center">
-            <Link
-              href="/trends"
-              className="eyebrow text-white/40 underline-offset-4 transition hover:text-white/70 hover:underline"
-            >
-              다른 사람들은 어디 갔을까
-            </Link>
-          </div>
         </div>
       </div>
     </main>
+  );
+}
+
+function ArrowIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="h-3.5 w-3.5"
+      aria-hidden
+    >
+      <path d="M5 12h13" />
+      <path d="m12 5 7 7-7 7" />
+    </svg>
   );
 }
