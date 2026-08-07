@@ -73,6 +73,12 @@ export default function Home() {
             장소·수치·사진은 모두 시연용 예시입니다
           </p>
 
+          <p className="mt-3 text-center text-[0.6875rem] leading-relaxed text-white/40">
+            제작 및 담당 총괄 · 김현상
+            <br />
+            kim7177khs@naver.com
+          </p>
+
           <div className="mt-6 flex items-center justify-between">
             {/* 팀원이 만든 다른 사이트. 새 탭으로 열어 시연 흐름을 끊지 않는다 */}
             <a
