@@ -31,17 +31,18 @@ export default function Home() {
             다음 행사 전, 진주를 한 번 더 만나보세요.
           </p>
 
-          <dl className="mt-9 divide-y divide-white/15 border-y border-white/15">
+          {/* 사진 위라 글자가 묻힌다. 흐린 판을 깔아 읽히게 한다 */}
+          <dl className="mt-9 divide-y divide-white/20 rounded-sm border border-white/25 bg-white/10 px-5 backdrop-blur-[3px]">
             {[
               ["남은 시간", "다음 행사까지 몇 분 남았는지만 알려주세요"],
               ["코스 추천", "행사에 늦지 않는 동선만 골라 보여드립니다"],
               ["상점 혜택", "가게에서 QR을 찍으면 혜택을 받습니다"],
             ].map(([term, desc]) => (
               <div key={term} className="flex gap-5 py-3.5">
-                <dt className="w-16 shrink-0 text-[0.8125rem] font-medium text-white/90">
+                <dt className="w-16 shrink-0 text-[0.8125rem] font-medium text-white">
                   {term}
                 </dt>
-                <dd className="text-[0.8125rem] leading-relaxed text-white/60">
+                <dd className="text-[0.8125rem] leading-relaxed text-white/80">
                   {desc}
                 </dd>
               </div>
