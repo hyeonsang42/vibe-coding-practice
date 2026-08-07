@@ -73,8 +73,8 @@ export default function Home() {
             장소·수치·사진은 모두 시연용 예시입니다
           </p>
 
-          {/* 팀원이 만든 다른 사이트. 새 탭으로 열어 시연 흐름을 끊지 않는다 */}
-          <div className="mt-6">
+          <div className="mt-6 flex items-center justify-between">
+            {/* 팀원이 만든 다른 사이트. 새 탭으로 열어 시연 흐름을 끊지 않는다 */}
             <a
               href="https://vhepier7993-bot.github.io/ararararara/"
               target="_blank"
@@ -85,6 +85,13 @@ export default function Home() {
               <ExternalIcon />
               <span className="sr-only">(새 창에서 열림)</span>
             </a>
+
+            <Link
+              href="/guestbook"
+              className="text-[0.6875rem] text-white/40 underline-offset-4 transition hover:text-white/70 hover:underline"
+            >
+              익명 방명록
+            </Link>
           </div>
         </div>
       </div>
