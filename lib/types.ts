@@ -47,10 +47,19 @@ export type Place = {
   note: string;
   /** 추상 지도 위 좌표 (0~100). 실제 위경도가 아니라 그림용 배치값이다. */
   map: { x: number; y: number };
+  /**
+   * 실제 지도용 위경도.
+   * ⚠️ 지금 값은 진주 원도심 안에 그럴듯하게 찍어둔 시연용 좌표다.
+   *    실제 상점이 정해지면 카카오맵에서 좌표를 복사해 교체한다.
+   */
+  coord: { lat: number; lng: number };
 };
 
 /** 추상 지도에서 축제장(출발지)이 놓이는 자리 */
 export const VENUE_MAP_POSITION = { x: 50, y: 76 };
+
+/** 축제장 위경도 (시연용 — 진주성 남강변 부근) */
+export const VENUE_COORD = { lat: 35.1893, lng: 128.0812 };
 
 /** 시간대별 방문 인증 수 (운영자 화면용, 시연용 가상 수치) */
 export type HourlyCheckIn = {

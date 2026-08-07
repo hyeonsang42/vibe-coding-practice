@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { CourseMap } from "./CourseMap";
+import { MapSection } from "./MapSection";
 import { SpeakButton } from "../../SpeakButton";
 import { courses, getCoursePlaces } from "@/lib/demo-data";
 import { formatDuration } from "@/lib/format";
@@ -66,7 +66,7 @@ export default async function CourseDetailPage({
         {course.reason}
       </p>
 
-      <CourseMap places={places} />
+      <MapSection places={places} />
 
       <ReturnBadge
         eventName={eventName}
